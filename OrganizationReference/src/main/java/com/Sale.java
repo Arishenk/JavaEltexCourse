@@ -5,6 +5,10 @@ public class Sale {
     private String[] items;
     private Double cost;
 
+    public String toString(){
+        return String.join(",", items) + " " + cost;
+    }
+
     public Sale(String[] items, Double cost) {
         this.cost = cost;
         this.items = items;

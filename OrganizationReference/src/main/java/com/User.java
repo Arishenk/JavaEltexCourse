@@ -1,6 +1,6 @@
 package main.java.com;
 
-public abstract class User {
+public abstract class User implements CSV {
 
     private String fio;
     private String phone;
@@ -34,5 +34,16 @@ public abstract class User {
 
     public String getEmail() {
         return this.email;
+    }
+
+    public String toCSV() {
+       return this.fio + ";" + this.phone + ";" + this.email + ";";
+    }
+
+    public void fromCSV(String str) {
+        String[] lineFromCSV = str.split(";");
+        this.fio = String.valueOf(lineFromCSV[0]);
+        this.phone = String.valueOf(lineFromCSV[1]);
+        this.email = String.valueOf(lineFromCSV[2]);
     }
 }

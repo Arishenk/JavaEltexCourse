@@ -16,4 +16,12 @@ public class Manager extends User{
     public Sale[] getSales() {
         return this.getSales();
     }
+
+    public String toCSV() {
+        String str = "";
+        for (Sale sale : sales) {
+            str += sale.toString();
+        }
+        return super.toCSV() + str + "\n\n";
+    }
 }

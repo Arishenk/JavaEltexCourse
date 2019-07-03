@@ -16,4 +16,14 @@ public class Developer extends User {
     public String getLanguages() {
         return String.join(",", this.languages);
     }
+
+    public String toCSV() {
+        return super.toCSV() + String.join(",", languages) + "\n\n";
+    }
+
+    public void fromCSV(String str) {
+        super.fromCSV(str);
+        String[] lineFromCSV = str.split(";");
+        this.languages = lineFromCSV[lineFromCSV.length - 1].split(",");
+    }
 }
