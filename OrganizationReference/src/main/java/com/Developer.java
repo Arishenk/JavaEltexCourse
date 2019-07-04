@@ -9,6 +9,10 @@ public class Developer extends User {
         this.languages = languages;
     }
 
+    public Developer() {
+        super();
+    }
+
     public void setLanguages(String[] languages) {
         this.languages = languages;
     }
@@ -18,12 +22,13 @@ public class Developer extends User {
     }
 
     public String toCSV() {
-        return super.toCSV() + String.join(",", languages) + "\n\n";
+        return super.toCSV() + String.join(",", languages) + "\n";
     }
 
     public void fromCSV(String str) {
         super.fromCSV(str);
         String[] lineFromCSV = str.split(";");
-        this.languages = lineFromCSV[lineFromCSV.length - 1].split(",");
+        String[] lan = lineFromCSV[lineFromCSV.length - 1].split(",");
+        this.languages = lan;
     }
 }

@@ -12,6 +12,10 @@ public abstract class User implements CSV {
         this.phone = phone;
     }
 
+    public User() {
+
+    }
+
     public void setFio(String tmpFio) {
         this.fio = tmpFio;
     }

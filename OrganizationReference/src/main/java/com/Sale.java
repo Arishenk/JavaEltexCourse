@@ -6,7 +6,7 @@ public class Sale {
     private Double cost;
 
     public String toString(){
-        return String.join(",", items) + " " + cost;
+        return String.join(",", items) + " " + cost.toString();
     }
 
     public Sale(String[] items, Double cost) {
