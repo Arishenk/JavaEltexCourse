@@ -1,4 +1,4 @@
-package main.java.com;
+package com.arishenk;
 
 public class Developer extends User {
 

@@ -1,4 +1,4 @@
-package main.java.com;
+package com.arishenk;
 
 public class Manager extends User{
 

@@ -1,4 +1,4 @@
-package main.java.com;
+package com.arishenk;
 
 public abstract class User implements CSV {
 

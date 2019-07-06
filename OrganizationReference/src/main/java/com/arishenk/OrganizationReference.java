@@ -1,4 +1,4 @@
-package main.java.com;
+package com.arishenk;
 
 import java.io.FileReader;
 import java.io.FileWriter;
