@@ -1,6 +1,6 @@
 package com.arishenk;
 
-public abstract class User implements CSV {
+public abstract class User implements CSV, Comparable<User> {
 
     private String fio;
     private String phone;
@@ -49,5 +49,10 @@ public abstract class User implements CSV {
         this.fio = String.valueOf(lineFromCSV[0]);
         this.phone = String.valueOf(lineFromCSV[1]);
         this.email = String.valueOf(lineFromCSV[2]);
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return this.phone.compareTo(user.phone);
     }
 }

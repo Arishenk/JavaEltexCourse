@@ -15,7 +15,7 @@ public class TestCollection {
     }
 
     public static void arrayListInfo() {
-        ArrayList<Integer> newlist = new ArrayList<Integer>();
+        ArrayList<Integer> newlist = new ArrayList();
         newlist.add(3);
         Class arraysInfo = newlist.getClass();
         System.out.println("Class name: " + arraysInfo.getName());
@@ -34,23 +34,22 @@ public class TestCollection {
     }
 
     public static void setAndMapTest() {
-        HashSet<Integer> hashSet = new HashSet();
-        HashMap<Integer, Integer> hashMap = new HashMap();
+        HashSet<Developer> hashSet = new HashSet();
+        HashMap<Integer, Developer> hashMap = new HashMap();
 
         long startTime = System.nanoTime();
 
         for (Integer i = 0; i < NumberOfUser; i++) {
-            hashSet.add(i);
+            hashSet.add(new Developer("Arina", i.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
         }
 
         long estimatedTime = System.nanoTime() - startTime;
         System.out.println("Time for add in hashSet: " + estimatedTime + " ns");
 
-        Integer removingObject = hashSet.toArray(new Integer[0])[NumberOfUser - 1];
-
         startTime = System.nanoTime();
 
-        hashSet.remove(removingObject);
+        Integer phone = NumberOfUser - 1;
+        hashSet.remove(new Developer("Arina", phone.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
 
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Time for remove from hashSet: " + estimatedTime + " ns");
@@ -58,7 +57,7 @@ public class TestCollection {
         startTime = System.nanoTime();
 
         for (Integer i = 0; i < NumberOfUser; i++) {
-            hashMap.put(i, i);
+            hashMap.put(i, new Developer("Arina", i.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
         }
 
         estimatedTime = System.nanoTime() - startTime;
@@ -73,14 +72,14 @@ public class TestCollection {
     }
 
     public static void listsTest() {
-        ArrayList<Integer> arrayList = new ArrayList();
-        LinkedList<Integer> linkedList = new LinkedList();
-        TreeSet<Integer> treeSet = new TreeSet();
+        ArrayList<Developer> arrayList = new ArrayList();
+        LinkedList<Developer> linkedList = new LinkedList();
+        TreeSet<User> treeSet = new TreeSet();
 
         long startTime = System.nanoTime();
 
         for (Integer i = 0; i < NumberOfUser; i++) {
-            arrayList.add(i);
+            arrayList.add(new Developer("Arina", i.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
         }
 
         long estimatedTime = System.nanoTime() - startTime;
@@ -96,7 +95,7 @@ public class TestCollection {
         startTime = System.nanoTime();
 
         for (Integer i = 0; i < NumberOfUser; i++) {
-            linkedList.add(i);
+            linkedList.add(new Developer("Arina", i.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
         }
 
         estimatedTime = System.nanoTime() - startTime;
@@ -112,7 +111,7 @@ public class TestCollection {
         startTime = System.nanoTime();
 
         for (Integer i = 0; i < NumberOfUser; i++) {
-            treeSet.add(i);
+            treeSet.add(new Developer("Arina", i.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
         }
 
         estimatedTime = System.nanoTime() - startTime;
@@ -120,11 +119,11 @@ public class TestCollection {
 
         startTime = System.nanoTime();
 
-        treeSet.remove(NumberOfUser - 1);
+        Integer phone = NumberOfUser - 1;
+        treeSet.remove(new Developer("Arina", phone.toString(), "aaa@gmail.ru", new String[] {"Java", "C#"} ));
 
         estimatedTime = System.nanoTime() - startTime;
         System.out.println("Time for remove from treeSet: " + estimatedTime + " ns");
-
     }
 }
 
