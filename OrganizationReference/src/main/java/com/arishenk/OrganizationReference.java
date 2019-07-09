@@ -22,7 +22,7 @@ public class OrganizationReference {
                     new Sale(new String[] {"Name1", "Name2"}, 123.5)}));
         }
 
-        users.add(new Task(developers.get(0)));
+        users.add(new Task(developers.get(0), "Task1"));
         printDevelopers(developers);
         printManagers(managers);
         writeDevelopers(developers);
@@ -70,16 +70,16 @@ public class OrganizationReference {
             System.out.println("users: \n");
             while (inFile.hasNextLine()){
                 Task<User> developer = new Task<>();
-                String objType = developer.fromCSV(inFile.nextLine());
+                String[] objType = developer.fromCSV(inFile.nextLine());
 
-                if (objType == "dev") {
+                if (objType[0] == "dev") {
                     Developer dev = (Developer)developer.getOwner();
-                    System.out.print(dev.getFio() + " " + dev.getEmail() + " " + dev.getPhone()
+                    System.out.print(objType[1] + " " + dev.getFio() + " " + dev.getEmail() + " " + dev.getPhone()
                             + " " + dev.getLanguages() + "\n");
                 }
                 else {
                     Manager man = (Manager)developer.getOwner();
-                    System.out.print(man.getFio() + " " + man.getEmail() + " " + man.getPhone()
+                    System.out.print(objType[1] + man.getFio() + " " + man.getEmail() + " " + man.getPhone()
                             + " " + man.getSales() + "\n");
                 }
             }
