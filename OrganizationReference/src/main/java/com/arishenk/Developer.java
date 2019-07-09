@@ -3,10 +3,15 @@ package com.arishenk;
 public class Developer extends User {
 
     private String[] languages;
+    public Integer index = 0;
+    public static int countIndex = 0;
 
     public Developer(String fio, String phone, String email, String[] languages) {
         super(fio, phone, email);
         this.languages = languages;
+        index += countIndex;
+        this.setId(index);
+        countIndex++;
     }
 
     public Developer() {

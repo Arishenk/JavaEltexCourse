@@ -3,10 +3,15 @@ package com.arishenk;
 public class Manager extends User{
 
     private Sale[] sales;
+    public Integer index = 0;
+    public static int countIndex = 0;
 
     public Manager(String fio, String phone, String email, Sale[] sales) {
         super(fio, phone, email);
         this.sales = sales;
+        index += countIndex;
+        this.setId(index);
+        countIndex++;
     }
 
     public Manager() {

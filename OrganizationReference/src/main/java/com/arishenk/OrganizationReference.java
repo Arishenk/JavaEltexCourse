@@ -11,6 +11,7 @@ public class OrganizationReference {
     public static void main(String[] args) {
         LinkedList<Developer> developers = new LinkedList<Developer>();
         LinkedList<Manager> managers = new LinkedList<Manager>();
+        LinkedList<Task<Developer>> users = new LinkedList<>();
 
         for (int i = 0; i < 3; i++) {
             developers.add(new Developer("Arina" + i, "999" + i, i + "aaa@gmail.com", new String[]{"C#", "Java"}));
@@ -21,13 +22,15 @@ public class OrganizationReference {
                     new Sale(new String[] {"Name1", "Name2"}, 123.5)}));
         }
 
+        users.add(new Task(developers.get(0)));
         printDevelopers(developers);
         printManagers(managers);
         writeDevelopers(developers);
         readDevelopers();
         writeManagers(managers);
         readManagers();
-
+        writeTasks(users);
+        readTasks();
         }
 
         public static void writeDevelopers(LinkedList<Developer> developers) {
@@ -44,7 +47,50 @@ public class OrganizationReference {
             }
         }
 
-    public static void writeManagers(LinkedList<Manager> managers) {
+    public static <T extends User & CSV> void writeTasks(LinkedList<Task<T>> users) {
+        try {
+            FileWriter fw = new FileWriter("tasks.csv", true);
+
+            for (Task<T> user : users)
+                fw.write(user.toCSV());
+
+            fw.flush();
+            fw.close();
+        } catch (IOException error) {
+            System.err.println(error.getMessage());
+        }
+    }
+
+    public static void readTasks() {
+        try {
+            FileReader fr = new FileReader("tasks.csv");
+
+            Scanner inFile = new Scanner(fr);
+
+            System.out.println("users: \n");
+            while (inFile.hasNextLine()){
+                Task<User> developer = new Task<>();
+                String objType = developer.fromCSV(inFile.nextLine());
+
+                if (objType == "dev") {
+                    Developer dev = (Developer)developer.getOwner();
+                    System.out.print(dev.getFio() + " " + dev.getEmail() + " " + dev.getPhone()
+                            + " " + dev.getLanguages() + "\n");
+                }
+                else {
+                    Manager man = (Manager)developer.getOwner();
+                    System.out.print(man.getFio() + " " + man.getEmail() + " " + man.getPhone()
+                            + " " + man.getSales() + "\n");
+                }
+            }
+
+            fr.close();
+        } catch (IOException error) {
+            System.err.println(error.getMessage());
+        }
+    }
+
+        public static void writeManagers(LinkedList<Manager> managers) {
         try {
             FileWriter fw = new FileWriter("managers.csv", true);
 
@@ -59,7 +105,6 @@ public class OrganizationReference {
     }
 
         public static void readDevelopers() {
-
             try {
                 FileReader fr = new FileReader("developers.csv");
 

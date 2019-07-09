@@ -5,6 +5,7 @@ public abstract class User implements CSV, Comparable<User> {
     private String fio;
     private String phone;
     private String email;
+    private Integer id;
 
     public User(String fio, String phone, String email) {
         this.fio = fio;
@@ -40,19 +41,28 @@ public abstract class User implements CSV, Comparable<User> {
         return this.email;
     }
 
+    public Integer getId() { return this.id; }
+
+    public void setId(Integer id) { this.id = id;}
+
     public String toCSV() {
-       return this.fio + ";" + this.phone + ";" + this.email + ";";
+       return this.id + ";" + this.fio + ";" + this.phone + ";" + this.email + ";";
     }
 
     public void fromCSV(String str) {
         String[] lineFromCSV = str.split(";");
-        this.fio = String.valueOf(lineFromCSV[0]);
-        this.phone = String.valueOf(lineFromCSV[1]);
-        this.email = String.valueOf(lineFromCSV[2]);
+        this.id = Integer.parseInt(String.valueOf(lineFromCSV[0]));
+        this.fio = String.valueOf(lineFromCSV[1]);
+        this.phone = String.valueOf(lineFromCSV[2]);
+        this.email = String.valueOf(lineFromCSV[3]);
     }
 
     @Override
     public int compareTo(User user) {
-        return this.phone.compareTo(user.phone);
+        return this.id.compareTo(user.id);
+    }
+
+    public boolean equals(User user) {
+        return this.fio.equals(user.fio);
     }
 }
