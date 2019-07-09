@@ -1,11 +1,9 @@
 package com.arishenk;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 public class Printer {
-    static public volatile Integer a = 0;
+    static public Integer a = 0;
 
-    public void increment() {
+    public synchronized void increment() {
         a += 1;
     }
 }
