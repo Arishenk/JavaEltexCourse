@@ -1,7 +1,0 @@
-apply plugin: "java"
-apply plugin: "application"
-mainClassName = "com.arishenk.Threads"
-run {
-    standardInput = System.in
-}
-
