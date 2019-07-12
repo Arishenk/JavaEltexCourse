@@ -1,5 +1,10 @@
 package com.arishenk;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
+
 public class Developer extends User {
 
     private String[] languages;
@@ -22,8 +27,12 @@ public class Developer extends User {
         this.languages = languages;
     }
 
-    public String getLanguages() {
+    public String languagesToString() {
         return String.join(",", this.languages);
+    }
+
+    public String[] getLanguages() {
+        return this.languages;
     }
 
     public String toCSV() {
@@ -35,5 +44,23 @@ public class Developer extends User {
         String[] lineFromCSV = str.split(";");
         String[] lan = lineFromCSV[lineFromCSV.length - 1].split(",");
         this.languages = lan;
+    }
+
+    @Override
+    public String toJSON(String fileName) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File(fileName), this);
+        return mapper.writeValueAsString(this);
+    }
+
+    @Override
+    public void fromJSON(String fileName) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Developer u2 = mapper.readValue(new File(fileName), Developer.class);
+        this.setId(u2.getId());
+        this.setLanguages(u2.languages);
+        this.setPhone(u2.getPhone());
+        this.setEmail(u2.getEmail());
+        this.setFio(u2.getFio());
     }
 }

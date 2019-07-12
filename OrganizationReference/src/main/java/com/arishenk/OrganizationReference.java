@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class OrganizationReference {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         LinkedList<Developer> developers = new LinkedList<Developer>();
         LinkedList<Manager> managers = new LinkedList<Manager>();
         LinkedList<Task<Developer>> users = new LinkedList<>();
@@ -19,7 +19,7 @@ public class OrganizationReference {
 
         for (int i = 0; i < 3; i++) {
             managers.add(new Manager("Masha" + i, "999" + i, "aaa@gmail.com", new Sale[]{
-                    new Sale(new String[] {"Name1", "Name2"}, 123.5)}));
+                    new Sale(new String[]{"Name1", "Name2"}, 123.5)}));
         }
 
         users.add(new Task(developers.get(0), "Task1"));
@@ -31,7 +31,26 @@ public class OrganizationReference {
         readManagers();
         writeTasks(users);
         readTasks();
-        }
+
+        Developer dev = new Developer();
+        dev.setFio("arishenk");
+        dev.setEmail("email@email");
+        dev.setPhone("9999");
+        dev.setLanguages(new String[]{"c#", "java"});
+        dev.setId(0);
+        dev.toJSON("developer.json");
+        Developer devFromFile = new Developer();
+        devFromFile.fromJSON("developer.json");
+        System.out.println(devFromFile.getId() + " " + devFromFile.getFio() + " " + devFromFile.getEmail());
+
+        Manager man = new Manager();
+        man.setFio("arr");
+        man.setEmail("email@em");
+        man.setPhone("777777");
+        man.setId(2);
+        man.setSales(new Sale[]{ new Sale(new String[]{"item"}, (double) 5)});
+        man.toJSON("manager.json");
+    }
 
         public static void writeDevelopers(LinkedList<Developer> developers) {
             try {
@@ -75,7 +94,7 @@ public class OrganizationReference {
                 if (objType[0] == "dev") {
                     Developer dev = (Developer)developer.getOwner();
                     System.out.print(objType[1] + " " + dev.getFio() + " " + dev.getEmail() + " " + dev.getPhone()
-                            + " " + dev.getLanguages() + "\n");
+                            + " " + dev.languagesToString() + "\n");
                 }
                 else {
                     Manager man = (Manager)developer.getOwner();
@@ -116,7 +135,7 @@ public class OrganizationReference {
                     developer.fromCSV(inFile.nextLine());
 
                     System.out.print(developer.getFio() + " " + developer.getEmail() + " " + developer.getPhone()
-                            + " " + developer.getLanguages() + "\n\n");
+                            + " " + developer.languagesToString() + "\n\n");
                 }
 
                 fr.close();
@@ -151,7 +170,7 @@ public class OrganizationReference {
             System.out.print("developers:\n");
             for (Developer element : developers) {
                 System.out.print(element.getFio() + " " + element.getEmail() + " " + element.getPhone()
-                        + " " + element.getLanguages() + "\n");
+                        + " " + element.languagesToString() + "\n");
             }
         }
 

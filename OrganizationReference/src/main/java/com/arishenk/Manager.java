@@ -1,5 +1,10 @@
 package com.arishenk;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
+
 public class Manager extends User{
 
     private Sale[] sales;
@@ -49,5 +54,23 @@ public class Manager extends User{
             counterSales++;
         }
         this.sales = resultSales;
+    }
+
+    @Override
+    public String toJSON(String fileName) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File(fileName), this);
+        return mapper.writeValueAsString(this);
+    }
+
+    @Override
+    public void fromJSON(String fileName) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Manager u2 = mapper.readValue(new File(fileName), Manager.class);
+        this.index = u2.index;
+        this.setSales(u2.sales);
+        this.setPhone(u2.getPhone());
+        this.setEmail(u2.getEmail());
+        this.setFio(u2.getFio());
     }
 }

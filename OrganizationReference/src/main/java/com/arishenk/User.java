@@ -1,6 +1,6 @@
 package com.arishenk;
 
-public abstract class User implements CSV, Comparable<User> {
+public abstract class User implements CSV, Comparable<User>, JSON {
 
     private String fio;
     private String phone;
@@ -14,7 +14,6 @@ public abstract class User implements CSV, Comparable<User> {
     }
 
     public User() {
-
     }
 
     public void setFio(String tmpFio) {
