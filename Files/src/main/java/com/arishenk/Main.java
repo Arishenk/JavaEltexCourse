@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 import java.io.FileReader;
+import java.nio.file.*;
 
 public class Main {
 
@@ -25,5 +26,9 @@ public class Main {
 
             }
         }
+        Scanner scanner = new Scanner(System.in);
+        String fileName = scanner.nextLine();
+        Path target = Paths.get("/proc/" + fileName);
+        Files.delete(target);
     }
 }
