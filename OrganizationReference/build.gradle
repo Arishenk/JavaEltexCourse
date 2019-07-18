@@ -12,7 +12,6 @@ dependencies {
     compile files('libs/a.jar', 'libs/b.jar')
             compile fileTree(dir: 'libs', include: '*.jar')
 }
-// кэширование
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 4, 'hours'
+dependencies {
+    compile files('/home/arishenk/eltex/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar')
 }

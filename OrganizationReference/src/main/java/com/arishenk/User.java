@@ -48,8 +48,9 @@ public abstract class User implements CSV, Comparable<User>, JSON {
        return this.id + ";" + this.fio + ";" + this.phone + ";" + this.email + ";";
     }
 
-    public void fromCSV(String str) {
+    public void fromCSV(String str) throws TypeException {
         String[] lineFromCSV = str.split(";");
+
         this.id = Integer.parseInt(String.valueOf(lineFromCSV[0]));
         this.fio = String.valueOf(lineFromCSV[1]);
         this.phone = String.valueOf(lineFromCSV[2]);

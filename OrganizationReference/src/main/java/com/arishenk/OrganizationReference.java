@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class OrganizationReference {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, TypeException {
         LinkedList<Developer> developers = new LinkedList<Developer>();
         LinkedList<Manager> managers = new LinkedList<Manager>();
         LinkedList<Task<Developer>> users = new LinkedList<>();
@@ -50,6 +50,8 @@ public class OrganizationReference {
         man.setId(2);
         man.setSales(new Sale[]{ new Sale(new String[]{"item"}, (double) 5)});
         man.toJSON("manager.json");
+
+        DUMP.toDB("managers.csv");
     }
 
         public static void writeDevelopers(LinkedList<Developer> developers) {
@@ -80,7 +82,7 @@ public class OrganizationReference {
         }
     }
 
-    public static void readTasks() {
+    public static void readTasks() throws TypeException {
         try {
             FileReader fr = new FileReader("tasks.csv");
 
@@ -96,11 +98,13 @@ public class OrganizationReference {
                     System.out.print(objType[1] + " " + dev.getFio() + " " + dev.getEmail() + " " + dev.getPhone()
                             + " " + dev.languagesToString() + "\n");
                 }
-                else {
+                else if (objType[0] == "man") {
                     Manager man = (Manager)developer.getOwner();
                     System.out.print(objType[1] + man.getFio() + " " + man.getEmail() + " " + man.getPhone()
                             + " " + man.getSales() + "\n");
                 }
+                else
+                    throw new TypeException("Uncorrected type");
             }
 
             fr.close();
@@ -123,7 +127,7 @@ public class OrganizationReference {
         }
     }
 
-        public static void readDevelopers() {
+        public static void readDevelopers() throws TypeException {
             try {
                 FileReader fr = new FileReader("developers.csv");
 
@@ -132,6 +136,7 @@ public class OrganizationReference {
                 System.out.println("developers: \n");
                 while (inFile.hasNextLine()){
                     Developer developer = new Developer();
+
                     developer.fromCSV(inFile.nextLine());
 
                     System.out.print(developer.getFio() + " " + developer.getEmail() + " " + developer.getPhone()
@@ -144,26 +149,9 @@ public class OrganizationReference {
             }
         }
 
-    public static void readManagers() {
+    public static void readManagers() throws TypeException {
 
-        try {
-            FileReader fr = new FileReader("managers.csv");
-
-            Scanner inFile = new Scanner(fr);
-
-            System.out.println("managers: \n");
-            while (inFile.hasNextLine()){
-                Manager manager = new Manager();
-                manager.fromCSV(inFile.nextLine());
-
-                System.out.print(manager.getFio() + " " + manager.getEmail() + " " + manager.getPhone()
-                        + " " + manager.getSales() + "\n");
-            }
-
-            fr.close();
-        } catch (IOException error) {
-            System.err.println(error.getMessage());
-        }
+        DUMP.ReadManagers();
     }
 
         public static void printDevelopers(LinkedList<Developer> developers) {

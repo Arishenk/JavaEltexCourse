@@ -40,7 +40,7 @@ public class Task<T extends User & CSV> {
         return result;
     }
 
-    public String[] fromCSV(String str) {
+    public String[] fromCSV(String str) throws TypeException {
         String[] result = new String[2];
         String[] lineFromCSV = str.split(";");
         String description = lineFromCSV[1];

@@ -1,0 +1,12 @@
+apply plugin: "java"
+apply plugin: "application"
+mainClassName = "com.arishenk.Main"
+run {
+    standardInput = System.in
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+  compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+}

@@ -38,11 +38,19 @@ public class Manager extends User{
         return super.toCSV() + ";" + this.getSales() + "\n";
     }
 
-    public void fromCSV(String str) {
+    public void fromCSV(String str) throws TypeException {
         super.fromCSV(str);
 
         String[] lineFromCSV = str.split(";");
+
+        if (lineFromCSV.length != 6) {
+            throw new TypeException("this type is not developer");
+        }
+
         String[] salesFromCSV = lineFromCSV[lineFromCSV.length - 1].split(":");
+
+        checkInputData(salesFromCSV);
+
         Sale[] resultSales = new Sale[salesFromCSV.length];
 
         Integer counterSales = 0;
@@ -54,6 +62,19 @@ public class Manager extends User{
             counterSales++;
         }
         this.sales = resultSales;
+    }
+
+    private void checkInputData(String[] salesFromCSV) throws TypeException {
+        for (String sale : salesFromCSV ) {
+
+            String[] masSales = sale.split(" ");
+            try {
+                Double cost = (Double.parseDouble(masSales[1]));
+            }
+            catch (NumberFormatException err) {
+                throw new TypeException("this type is not manager");
+            }
+        }
     }
 
     @Override

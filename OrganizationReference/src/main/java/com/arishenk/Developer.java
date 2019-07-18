@@ -39,9 +39,13 @@ public class Developer extends User {
         return super.toCSV() + String.join(",", languages) + "\n";
     }
 
-    public void fromCSV(String str) {
+    public void fromCSV(String str) throws TypeException {
         super.fromCSV(str);
         String[] lineFromCSV = str.split(";");
+
+        if (lineFromCSV.length != 5) {
+            throw new TypeException("this type is not developer");
+        }
         String[] lan = lineFromCSV[lineFromCSV.length - 1].split(",");
         this.languages = lan;
     }
