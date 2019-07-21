@@ -128,25 +128,7 @@ public class OrganizationReference {
     }
 
         public static void readDevelopers() throws TypeException {
-            try {
-                FileReader fr = new FileReader("developers.csv");
-
-                Scanner inFile = new Scanner(fr);
-
-                System.out.println("developers: \n");
-                while (inFile.hasNextLine()){
-                    Developer developer = new Developer();
-
-                    developer.fromCSV(inFile.nextLine());
-
-                    System.out.print(developer.getFio() + " " + developer.getEmail() + " " + developer.getPhone()
-                            + " " + developer.languagesToString() + "\n\n");
-                }
-
-                fr.close();
-            } catch (IOException error) {
-                System.err.println(error.getMessage());
-            }
+            DUMP.ReadDevelopers();
         }
 
     public static void readManagers() throws TypeException {

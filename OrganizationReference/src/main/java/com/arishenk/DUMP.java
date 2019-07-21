@@ -10,6 +10,51 @@ public final class DUMP {
         if (fileName.equals("managers.csv")) {
             ReadManagers();
         }
+        else
+        {
+            ReadDevelopers();
+        }
+    }
+
+    static void ReadDevelopers() throws TypeException {
+        try {
+            FileReader fr = new FileReader("developers.csv");
+
+            Scanner inFile = new Scanner(fr);
+
+            System.out.println("developers: \n");
+
+            final String DB_URL = "jdbc:mysql://127.0.0.1:3306/USERS";
+            try {
+                Connection connection = DriverManager.getConnection(DB_URL, "arishenk", "qwerty123"); //соединение с БД
+                Statement statement = connection.createStatement();
+
+            while (inFile.hasNextLine()){
+                Developer developer = new Developer();
+
+                developer.fromCSV(inFile.nextLine());
+
+                System.out.print(developer.getFio() + " " + developer.getEmail() + " " + developer.getPhone()
+                        + " " + developer.languagesToString() + "\n\n");
+
+                statement.executeUpdate("INSERT INTO DEVELOPERS(fio, phone, email, languaches) VALUE ('"+ developer.getFio() + "', '"
+                        + developer.getPhone() + "', '" + developer.getEmail() + "', '" + developer.languagesToString() + "');"); // добавление/удаление/изменение записей
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM DEVELOPERS;"); // получение записей
+
+                while (resultSet.next()) { // проход по полученным записям
+                    String fio = resultSet.getString("fio"); // получение значений полей
+                    System.out.println(fio);
+                }
+            }
+                connection.close(); // отключение от БД
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+            fr.close();
+        } catch (IOException error) {
+            System.err.println(error.getMessage());
+        }
     }
 
     public static void ReadManagers() throws TypeException {
