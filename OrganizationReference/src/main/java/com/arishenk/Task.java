@@ -1,7 +1,18 @@
 package com.arishenk;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
 public class Task<T extends User & CSV> {
+
+    @Getter
+    @Setter
     private T owner;
+
+    @Getter
+    @Setter
     private String description;
 
     public Task(T owner, String description) {
@@ -9,16 +20,13 @@ public class Task<T extends User & CSV> {
         this.description = description;
     }
 
-    public Task() {
+    @Override
+    public String toString() {
+        return "Task{" +
+                "owner=" + owner +
+                ", description='" + description + '\'' +
+                '}';
     }
-
-    public T getOwner() {return this.owner;}
-
-    public void setOwner(T owner) { this.owner = owner;}
-
-    public String getDescription() {return this.description;}
-
-    public void setDescription(String description) {this.description = description;}
 
     public String toCSV() {
         String result;

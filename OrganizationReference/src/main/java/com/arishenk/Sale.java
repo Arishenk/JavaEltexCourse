@@ -1,8 +1,16 @@
 package com.arishenk;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Sale {
 
+    @Getter
+    @Setter
     private String[] items;
+
+    @Getter
+    @Setter
     private Double cost;
 
     public String toString(){
@@ -12,21 +20,5 @@ public class Sale {
     public Sale(String[] items, Double cost) {
         this.cost = cost;
         this.items = items;
-    }
-
-    public void setItems(String[] items) {
-        this.items = items;
-    }
-
-    public String[] getItems() {
-        return this.items;
-    }
-
-    public void setCost(Double cost) {
-        this.cost = cost;
-    }
-
-    public Double getCost() {
-        return this.cost;
     }
 }

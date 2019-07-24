@@ -1,15 +1,29 @@
 package com.arishenk;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
+@People
+@NoArgsConstructor
 public class Manager extends User{
 
+    @Setter
     private Sale[] sales;
+
     public Integer index = 0;
     public static int countIndex = 0;
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "sales=" + Arrays.toString(sales) +
+                '}';
+    }
 
     public Manager(String fio, String phone, String email, Sale[] sales) {
         super(fio, phone, email);
@@ -17,13 +31,6 @@ public class Manager extends User{
         index += countIndex;
         this.setId(index);
         countIndex++;
-    }
-
-    public Manager() {
-    }
-
-    public void setSales(Sale[] sales) {
-        this.sales = sales;
     }
 
     public String getSales() {

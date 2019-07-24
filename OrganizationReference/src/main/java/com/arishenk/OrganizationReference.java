@@ -1,5 +1,9 @@
 package com.arishenk;
 
+import lombok.Cleanup;
+import lombok.Getter;
+import lombok.SneakyThrows;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,8 +22,8 @@ public class OrganizationReference {
         }
 
         for (int i = 0; i < 3; i++) {
-            managers.add(new Manager("Masha" + i, "999" + i, "aaa@gmail.com", new Sale[]{
-                    new Sale(new String[]{"Name1", "Name2"}, 123.5)}));
+            managers.add(new Manager("Masha" + i, "888" + i, i +"@gmail.com", new Sale[]{
+                    new Sale(new String[]{"Name" + i, "Name" + i + 1}, 123.5 + i)}));
         }
 
         users.add(new Task(developers.get(0), "Task1"));
@@ -51,105 +55,102 @@ public class OrganizationReference {
         man.setSales(new Sale[]{ new Sale(new String[]{"item"}, (double) 5)});
         man.toJSON("manager.json");
 
+        Class cl = man.getClass();
+        People pl = (People)cl.getAnnotation(People.class);
+        System.out.println(pl.sex() + " " + pl.age() + " " + pl.mass());
+
         DUMP.toDB("managers.csv");
         DUMP.toDB("developers.csv");
         DUMP.writeUnion();
     }
 
-        public static void writeDevelopers(LinkedList<Developer> developers) {
-            try {
-                FileWriter fw = new FileWriter("developers.csv", true);
+    @SneakyThrows(IOException.class)
+    public static void writeDevelopers(LinkedList<Developer> developers) {
+        @Cleanup FileWriter fw = new FileWriter("developers.csv", true);
+        for (Developer developer : developers)
+            fw.write(developer.toCSV());
 
-                for (Developer developer : developers)
-                    fw.write(developer.toCSV());
+        fw.flush();
+    }
 
-                fw.flush();
-                fw.close();
-            } catch (IOException error) {
-                System.err.println(error.getMessage());
-            }
-        }
-
+    @SneakyThrows(IOException.class)
     public static <T extends User & CSV> void writeTasks(LinkedList<Task<T>> users) {
-        try {
-            FileWriter fw = new FileWriter("tasks.csv", true);
+        @Cleanup FileWriter fw = new FileWriter("tasks.csv", true);
+        for (Task<T> user : users)
+            fw.write(user.toCSV());
 
-            for (Task<T> user : users)
-                fw.write(user.toCSV());
-
-            fw.flush();
-            fw.close();
-        } catch (IOException error) {
-            System.err.println(error.getMessage());
-        }
+        fw.flush();
     }
 
+    @SneakyThrows(IOException.class)
     public static void readTasks() throws TypeException {
-        try {
-            FileReader fr = new FileReader("tasks.csv");
+        @Cleanup FileReader fr = new FileReader("tasks.csv");
+        @Cleanup Scanner inFile = new Scanner(fr);
 
-            Scanner inFile = new Scanner(fr);
+        System.out.println("users: \n");
+        while (inFile.hasNextLine()){
+            Task<User> developer = new Task<>();
+            String[] objType = developer.fromCSV(inFile.nextLine());
 
-            System.out.println("users: \n");
-            while (inFile.hasNextLine()){
-                Task<User> developer = new Task<>();
-                String[] objType = developer.fromCSV(inFile.nextLine());
-
-                if (objType[0] == "dev") {
-                    Developer dev = (Developer)developer.getOwner();
-                    System.out.print(objType[1] + " " + dev.getFio() + " " + dev.getEmail() + " " + dev.getPhone()
-                            + " " + dev.languagesToString() + "\n");
-                }
-                else if (objType[0] == "man") {
-                    Manager man = (Manager)developer.getOwner();
-                    System.out.print(objType[1] + man.getFio() + " " + man.getEmail() + " " + man.getPhone()
-                            + " " + man.getSales() + "\n");
-                }
-                else
-                    throw new TypeException("Uncorrected type");
+            if (objType[0] == "dev") {
+                Developer dev = (Developer)developer.getOwner();
+                System.out.print(objType[1] + " " + dev.toString() + "\n");
             }
-
-            fr.close();
-        } catch (IOException error) {
-            System.err.println(error.getMessage());
+            else if (objType[0] == "man") {
+                Manager man = (Manager)developer.getOwner();
+                System.out.print(objType[1] + man.toString() + "\n");
+            }
+            else
+                throw new TypeException("Uncorrected type");
         }
     }
 
-        public static void writeManagers(LinkedList<Manager> managers) {
-        try {
-            FileWriter fw = new FileWriter("managers.csv", true);
+    @SneakyThrows(IOException.class)
+    public static void writeManagers(LinkedList<Manager> managers) {
+        @Cleanup FileWriter fw = new FileWriter("managers.csv", true);
+        for (Manager manager : managers)
+            fw.write(manager.toCSV());
 
-            for (Manager manager : managers)
-                fw.write(manager.toCSV());
+        fw.flush();
+    }
 
-            fw.flush();
-            fw.close();
-        } catch (IOException error) {
-            System.err.println(error.getMessage());
+    @SneakyThrows(IOException.class)
+    public static void readDevelopers() throws TypeException {
+        @Cleanup FileReader fr = new FileReader("developers.csv");
+        @Cleanup Scanner inFile = new Scanner(fr);
+        System.out.println("developers: \n");
+
+        while (inFile.hasNextLine()) {
+            Developer developer = new Developer();
+            developer.fromCSV(inFile.nextLine());
+            System.out.print(developer.toString()+ "\n\n");
         }
     }
 
-        public static void readDevelopers() throws TypeException {
-            DUMP.ReadDevelopers();
-        }
-
+    @SneakyThrows(IOException.class)
     public static void readManagers() throws TypeException {
-        DUMP.ReadManagers();
+            @Cleanup FileReader fr = new FileReader("managers.csv");
+            @Cleanup Scanner inFile = new Scanner(fr);
+            System.out.println("managers: \n");
+
+            while (inFile.hasNextLine()) {
+                Manager manager = new Manager();
+                manager.fromCSV(inFile.nextLine());
+                System.out.print(manager.toString() + "\n");
+            }
     }
 
-        public static void printDevelopers(LinkedList<Developer> developers) {
-            System.out.print("developers:\n");
-            for (Developer element : developers) {
-                System.out.print(element.getFio() + " " + element.getEmail() + " " + element.getPhone()
-                        + " " + element.languagesToString() + "\n");
-            }
+    public static void printDevelopers(LinkedList<Developer> developers) {
+        System.out.print("developers:\n");
+        for (Developer element : developers) {
+            System.out.print(element.toString() + "\n");
         }
+    }
 
-        public static void printManagers(LinkedList<Manager> managers) {
-            System.out.print("managers:\n");
-            for (Manager element : managers) {
-                System.out.print(element.getFio() + " " + element.getEmail() + " " + element.getPhone()
-                        + " " + element.getSales() + "\n");
-            }
+    public static void printManagers(LinkedList<Manager> managers) {
+        System.out.print("managers:\n");
+        for (Manager element : managers) {
+            System.out.print(element.toString() + "\n");
         }
+    }
 }

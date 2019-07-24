@@ -1,13 +1,22 @@
 package com.arishenk;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
+@People
+@NoArgsConstructor
 public class Developer extends User {
 
+    @Getter
+    @Setter
     private String[] languages;
+
     public Integer index = 0;
     public static int countIndex = 0;
 
@@ -19,20 +28,15 @@ public class Developer extends User {
         countIndex++;
     }
 
-    public Developer() {
-        super();
-    }
-
-    public void setLanguages(String[] languages) {
-        this.languages = languages;
+    @Override
+    public String toString() {
+        return super.toString() +
+                "languages=" + Arrays.toString(languages) +
+                '}';
     }
 
     public String languagesToString() {
         return String.join(",", this.languages);
-    }
-
-    public String[] getLanguages() {
-        return this.languages;
     }
 
     public String toCSV() {

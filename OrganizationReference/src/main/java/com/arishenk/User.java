@@ -1,12 +1,28 @@
 package com.arishenk;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.IOException;
 
+@NoArgsConstructor
 public class User implements CSV, Comparable<User>, JSON {
 
+    @Getter
+    @Setter
     private String fio;
+
+    @Getter
+    @Setter
     private String phone;
+
+    @Getter
+    @Setter
     private String email;
+
+    @Getter
+    @Setter
     private Integer id;
 
     public User(String fio, String phone, String email) {
@@ -14,37 +30,6 @@ public class User implements CSV, Comparable<User>, JSON {
         this.email = email;
         this.phone = phone;
     }
-
-    public User() {
-    }
-
-    public void setFio(String tmpFio) {
-        this.fio = tmpFio;
-    }
-
-    public String getFio() {
-        return this.fio;
-    }
-
-    public void setPhone(String tmpPhone) {
-        this.phone = tmpPhone;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public void setEmail(String tmpEmail) {
-        this.email = tmpEmail;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public Integer getId() { return this.id; }
-
-    public void setId(Integer id) { this.id = id;}
 
     public String toCSV() {
        return this.id + ";" + this.fio + ";" + this.phone + ";" + this.email + ";";
