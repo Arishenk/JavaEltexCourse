@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class OrganizationReference {
-
     public static void main(String[] args) throws IOException, TypeException {
+        DUMP _dump = new DUMP();
         LinkedList<Developer> developers = new LinkedList<Developer>();
         LinkedList<Manager> managers = new LinkedList<Manager>();
         LinkedList<Task<Developer>> users = new LinkedList<>();
@@ -52,6 +52,8 @@ public class OrganizationReference {
         man.toJSON("manager.json");
 
         DUMP.toDB("managers.csv");
+        DUMP.toDB("developers.csv");
+        DUMP.writeUnion();
     }
 
         public static void writeDevelopers(LinkedList<Developer> developers) {
@@ -132,7 +134,6 @@ public class OrganizationReference {
         }
 
     public static void readManagers() throws TypeException {
-
         DUMP.ReadManagers();
     }
 

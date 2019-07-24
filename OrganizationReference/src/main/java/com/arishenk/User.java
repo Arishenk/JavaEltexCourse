@@ -1,6 +1,8 @@
 package com.arishenk;
 
-public abstract class User implements CSV, Comparable<User>, JSON {
+import java.io.IOException;
+
+public class User implements CSV, Comparable<User>, JSON {
 
     private String fio;
     private String phone;
@@ -64,5 +66,24 @@ public abstract class User implements CSV, Comparable<User>, JSON {
 
     public boolean equals(User user) {
         return this.fio.equals(user.fio);
+    }
+
+    @Override
+    public String toJSON(String str) throws IOException {
+        return null;
+    }
+
+    @Override
+    public void fromJSON(String str) throws IOException {
+
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "fio='" + fio + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
