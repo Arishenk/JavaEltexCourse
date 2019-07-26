@@ -1,12 +1,19 @@
-package com.arishenk;
+package com.arishenk.entity;
 
+import com.arishenk.CSV;
+import com.arishenk.JSON;
+import com.arishenk.TypeException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.IOException;
 
 @NoArgsConstructor
+@Entity
 public class User implements CSV, Comparable<User>, JSON {
 
     @Getter
@@ -21,6 +28,8 @@ public class User implements CSV, Comparable<User>, JSON {
     @Setter
     private String email;
 
+    @Id
+    @GeneratedValue
     @Getter
     @Setter
     private Integer id;

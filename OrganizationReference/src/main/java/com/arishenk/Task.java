@@ -1,5 +1,8 @@
 package com.arishenk;
 
+import com.arishenk.entity.Developer;
+import com.arishenk.entity.Manager;
+import com.arishenk.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

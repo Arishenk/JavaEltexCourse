@@ -1,6 +1,6 @@
 package com.arishenk;
 
-interface CSV {
+public interface CSV {
     String toCSV();
     void fromCSV(String str) throws TypeException;
 }

@@ -1,4 +1,4 @@
-package com.arishenk;
+package com.arishenk.entity;
 
 import lombok.Getter;
 import lombok.Setter;

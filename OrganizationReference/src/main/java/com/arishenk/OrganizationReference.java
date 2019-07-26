@@ -1,7 +1,10 @@
 package com.arishenk;
 
+import com.arishenk.entity.Developer;
+import com.arishenk.entity.Manager;
+import com.arishenk.entity.Sale;
+import com.arishenk.entity.User;
 import lombok.Cleanup;
-import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.io.FileReader;
@@ -29,9 +32,9 @@ public class OrganizationReference {
         users.add(new Task(developers.get(0), "Task1"));
         printDevelopers(developers);
         printManagers(managers);
-        writeDevelopers(developers);
+        //writeDevelopers(developers);
         readDevelopers();
-        writeManagers(managers);
+        //writeManagers(managers);
         readManagers();
         writeTasks(users);
         readTasks();

@@ -1,5 +1,7 @@
-package com.arishenk;
+package com.arishenk.entity;
 
+import com.arishenk.People;
+import com.arishenk.TypeException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

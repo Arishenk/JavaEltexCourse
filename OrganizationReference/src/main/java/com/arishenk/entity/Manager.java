@@ -1,5 +1,8 @@
-package com.arishenk;
+package com.arishenk.entity;
 
+import com.arishenk.People;
+import com.arishenk.TypeException;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -10,9 +13,10 @@ import java.util.Arrays;
 
 @People
 @NoArgsConstructor
-public class Manager extends User{
+public class Manager extends User {
 
     @Setter
+    @Getter
     private Sale[] sales;
 
     public Integer index = 0;
@@ -33,7 +37,7 @@ public class Manager extends User{
         countIndex++;
     }
 
-    public String getSales() {
+    public String salesToString() {
         String str = "";
         for (Sale sale : this.sales) {
             str += sale.toString() + ":";
@@ -42,7 +46,7 @@ public class Manager extends User{
     }
 
     public String toCSV() {
-        return super.toCSV() + ";" + this.getSales() + "\n";
+        return super.toCSV() + this.salesToString() + "\n";
     }
 
     public void fromCSV(String str) throws TypeException {
@@ -50,8 +54,8 @@ public class Manager extends User{
 
         String[] lineFromCSV = str.split(";");
 
-        if (lineFromCSV.length != 6) {
-            throw new TypeException("this type is not developer");
+        if (lineFromCSV.length != 5) {
+            throw new TypeException("this type is not manager");
         }
 
         String[] salesFromCSV = lineFromCSV[lineFromCSV.length - 1].split(":");
