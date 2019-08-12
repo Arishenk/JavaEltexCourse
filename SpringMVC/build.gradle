@@ -1,0 +1,42 @@
+apply plugin: "java"
+apply plugin: "application"
+mainClassName = "com.arishenk.SpringMVC"
+repositories {
+    mavenCentral()
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    }
+}
+dependencies {
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.+'
+    compile files('libs/a.jar', 'libs/b.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+dependencies {
+    compile 'mysql:mysql-connector-java:8.0.17'
+    implementation 'org.hibernate:hibernate-core:5.4.3.Final'
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+dependencies {
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+}
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+}

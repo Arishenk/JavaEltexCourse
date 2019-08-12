@@ -1,0 +1,35 @@
+apply plugin: "java"
+apply plugin: "application"
+mainClassName = "com.arishenk.WEBServer"
+repositories {
+    mavenCentral()
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+    }
+}
+dependencies {
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.+'
+    compile files('libs/a.jar', 'libs/b.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+dependencies {
+    compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.10.2'
+}
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+dependencies {
+    compile 'mysql:mysql-connector-java:8.0.17'
+    implementation 'org.hibernate:hibernate-core:5.4.3.Final'
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb"
+}

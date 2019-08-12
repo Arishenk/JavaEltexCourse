@@ -3,4 +3,5 @@ apply plugin: "application"
 mainClassName = "com.arishenk.TestCollection"
 run {
     standardInput = System.in
+    jvmArgs = ["-XX:+UseG1GC", "-Xmn128m"]
 }

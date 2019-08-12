@@ -47,6 +47,9 @@ public class ORM {
         session.beginTransaction();
         session.save(user1);
         session.save(user2);
+        session.save(passport);
+        session.save(passport2);
+        session.save(address);
         session.getTransaction().commit();
         session.close();
 

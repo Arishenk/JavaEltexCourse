@@ -74,7 +74,7 @@ public class TestCollection {
     public static void listsTest() {
         ArrayList<Developer> arrayList = new ArrayList();
         LinkedList<Developer> linkedList = new LinkedList();
-        TreeSet<User> treeSet = new TreeSet();
+        TreeSet<Developer> treeSet = new TreeSet();
 
         long startTime = System.nanoTime();
 

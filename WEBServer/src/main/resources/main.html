@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Title</title>
+</head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.get("/get_users", function(data) {
+            var line = "";
+            for (var i = 0; i < (JSON.parse(data)).length; i++) {
+                console.log((JSON.parse(data))[i]);
+                line += (JSON.parse(data))[i].name + "<br>";
+            }
+            console.log(line);
+                $("#users").html(line);
+        });
+    });
+
+    function getUser() {
+        $.get("/get_user/" + $("#userId").val(), function (data) {
+            $("#userInfo").html((JSON.parse(data)).name);
+        });
+    }
+</script>
+<body>
+<div class="row">
+    <center>
+<div id="users" style="height: 150px; width: 150px;" class="col-md-6"></div>
+    </center>
+<div id="user" style="height: 400px; width: 50px;" class="col-md-6">
+    <center>
+    <label>
+        <input id="userId" type="text"/>
+    </label>
+    <button onclick="getUser()"> Submit</button>
+    <div id="userInfo"></div>
+    </center>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+apply plugin: "java"
+apply plugin: "application"
+mainClassName = "com.arishenk.MongoDBConnector"
+run {
+    standardInput = System.in
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.10.2'
+}

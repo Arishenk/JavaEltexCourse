@@ -1,0 +1,57 @@
+plugins { id 'nu.studer.jooq' version "3.0.3" }
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName='com.arishenk.Jooq'
+
+repositories {
+    jcenter()
+}
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs += [ "--release", "8" ]
+    }
+    dependencies {
+        compile 'org.jooq:jooq'
+        compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+        jooqRuntime 'mysql:mysql-connector-java:+'
+    }
+
+    jooq {
+        Properties properties = new Properties()
+        properties.load(project.file("src/main/resources/config.properties").newDataInputStream())
+        version = "3.11.11"
+        sample(sourceSets.main) {
+            jdbc {
+                driver = "com.mysql.jdbc.Driver"
+                url = properties.getProperty("db.host")
+                user = properties.getProperty("db.login")
+                password = properties.getProperty("db.password")
+            }
+            generator {
+                name = "org.jooq.codegen.DefaultGenerator"
+                database {
+                    name = "org.jooq.meta.mysql.MySQLDatabase"
+                    inputSchema = "USERS"
+                    outputSchemaToDefault = true
+                }
+                generate {
+                    relations = true
+                    deprecated = false
+                    records = true
+                    immutablePojos = true
+                    indexes = false
+                    relations = false
+                    globalObjectReferences = false
+                    globalCatalogReferences = false
+                    globalSchemaReferences = false
+                }
+
+                target {
+                    packageName = "com.arishenk.jook.Database"
+                    directory = "src/main/java"
+                }
+            }
+        } 
+    }
